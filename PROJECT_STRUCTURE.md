@@ -6,8 +6,9 @@ bills-ai-application/
 ├── QUICKSTART.md                      # Quick setup guide
 ├── CONTRIBUTING.md                    # Contribution guidelines
 ├── CHANGELOG.md                       # Version history
-├── LICENSE                            # MIT License
+├── LICENSE                            # Apache 2.0 License
 ├── .gitignore                         # Git ignore rules
+├── .venv/                             # Python virtual environment (root)
 ├── docker-compose.yml                 # Local development orchestration
 │
 ├── Design.md                          # Technical design document
@@ -71,7 +72,8 @@ bills-ai-application/
 │   │   │   │   └── llm_client.py
 │   │   │   └── schemas/             # Pydantic schemas
 │   │   │       └── README.md
-│   │   ├── requirements.txt
+│   │   ├── pyproject.toml           # Poetry dependencies
+│   │   ├── poetry.lock              # Locked dependencies
 │   │   ├── .env.example
 │   │   ├── Dockerfile
 │   │   └── README.md
@@ -86,7 +88,7 @@ bills-ai-application/
 │   │   │   ├── ocr_engine.py
 │   │   │   └── schemas.py
 │   │   ├── models/                 # Model cache
-│   │   ├── requirements.txt
+│   │   ├── pyproject.toml          # Poetry dependencies
 │   │   ├── Dockerfile
 │   │   └── README.md
 │   │
@@ -99,7 +101,7 @@ bills-ai-application/
 │       │   └── prompts/           # Versioned prompts
 │       │       └── receipt_v1.txt
 │       ├── models/                # Model cache
-│       ├── requirements.txt
+│       ├── pyproject.toml         # Poetry dependencies
 │       ├── Dockerfile
 │       └── README.md
 │
@@ -137,7 +139,8 @@ bills-ai-application/
 
 ### Configuration
 - `package.json` - Node.js dependencies
-- `requirements.txt` - Python dependencies
+- `pyproject.toml` - Python Poetry dependencies
+- `poetry.lock` - Locked Python dependencies
 - `tsconfig.json` - TypeScript configuration
 - `next.config.js` - Next.js configuration
 - `app.json` - Expo configuration

@@ -6,7 +6,8 @@ This guide will help you get Bills.ai up and running locally in minutes.
 
 - Docker and Docker Compose installed
 - Node.js 20+ (for frontend development)
-- Python 3.11+ (for backend development without Docker)
+- Python 3.10+ (for backend development without Docker)
+- Poetry 1.7+ (Python package manager - `pip install poetry`)
 - Git
 
 ## Quick Start with Docker Compose
@@ -80,45 +81,51 @@ GRANT ALL PRIVILEGES ON DATABASE billsai TO billsai;
 
 ```bash
 cd backend/api
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-pip install -r requirements.txt
+
+# Install Poetry if not already installed
+pip install poetry
+
+# Install dependencies (creates .venv in project root)
+poetry install
 
 # Configure environment
 cp .env.example .env
 # Edit .env with your settings
 
 # Run migrations
-alembic upgrade head
+poetry run alembic upgrade head
 
 # Start server
-uvicorn app.main:app --reload
+poetry run uvicorn app.main:app --reload
 ```
 
-### 3. OCR Service
+### 3. OCR Service (Mock Mode)
 
 ```bash
 cd ai-services/ocr-service
-python -m venv venv
-source venv/bin/activate
-pip install -r requirements.txt
-uvicorn app.main:app --host 0.0.0.0 --port 8001
+
+# Install dependencies
+poetry install
+
+# Start service (mock mode - no PaddleOCR download needed)
+poetry run uvicorn app.main:app --host 0.0.0.0 --port 8001
 ```
 
-### 4. LLM Service
+*Note: OCR service runs in mock mode for development, returning fixed sample data.*
+
+### 4. LLM Service (Mock Mode)
 
 ```bash
-# Install Ollama first
-curl -fsSL https://ollama.com/install.sh | sh
-ollama pull llama2
-
-# Start service
 cd ai-services/llm-service
-python -m venv venv
-source venv/bin/activate
-pip install -r requirements.txt
-uvicorn app.main:app --host 0.0.0.0 --port 8002
+
+# Install dependencies
+poetry install
+
+# Start service (mock mode - no Ollama needed)
+poetry run uvicorn app.main:app --host 0.0.0.0 --port 8002
 ```
+
+*Note: LLM service runs in mock mode for development, returning fixed structured data.*
 
 ## Testing the API
 
