@@ -46,7 +46,7 @@ bills-ai-application/
 - **Mobile**: Expo React Native, React Navigation, SecureStore
 
 #### Backend
-- **API Gateway**: FastAPI (Python 3.11+)
+- **API Gateway**: FastAPI (Python 3.10+)
 - **Database**: PostgreSQL with SQLAlchemy 2.0
 - **Authentication**: JWT (Access + Refresh tokens)
 - **File Storage**: Google Cloud Storage with signed URLs
@@ -102,7 +102,8 @@ project-root/
 │   │   │   ├── repositories/ # Data access layer
 │   │   │   ├── services/    # Business logic
 │   │   │   └── schemas/     # Pydantic schemas
-│   │   ├── requirements.txt
+│   │   ├── pyproject.toml   # Poetry dependencies
+│   │   ├── poetry.lock      # Locked dependencies
 │   │   └── Dockerfile
 │   │
 │   └── migrations/           # Alembic migrations
@@ -114,7 +115,7 @@ project-root/
 │   │   │   ├── ocr_engine.py
 │   │   │   └── schemas.py
 │   │   ├── models/          # PaddleOCR model cache
-│   │   ├── requirements.txt
+│   │   ├── pyproject.toml   # Poetry dependencies
 │   │   └── Dockerfile
 │   │
 │   └── llm-service/
@@ -125,7 +126,7 @@ project-root/
 │       │   ├── schemas.py
 │       │   └── validator.py
 │       ├── models/
-│       ├── requirements.txt
+│       ├── pyproject.toml   # Poetry dependencies
 │       └── Dockerfile
 │
 ├── infra/
@@ -141,6 +142,8 @@ project-root/
 └── scripts/
     ├── init_db.sh
     └── load_prompts.py
+
+Note: Python projects use Poetry for dependency management. The root `.venv/` directory is used for all Python virtual environments.
 ```
 
 ## Database Schema
@@ -254,7 +257,8 @@ contacts (
 ### Prerequisites
 - Docker & Docker Compose
 - Node.js 20+
-- Python 3.11+
+- Python 3.10+
+- Poetry 1.7+ (Python package manager)
 - PostgreSQL 15+
 
 ### Quick Start
@@ -270,10 +274,17 @@ contacts (
    docker-compose up -d
    ```
 
-3. **Initialize database**
+3. **Install Python dependencies and initialize database**
    ```bash
+   # Install Poetry if not already installed
+   pip install poetry
+   
+   # Install backend dependencies
    cd backend/api
-   alembic upgrade head
+   poetry install
+   
+   # Run migrations
+   poetry run alembic upgrade head
    ```
 
 4. **Start frontend (web)**
@@ -469,7 +480,7 @@ This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENS
 
 ## Support
 
-For questions or issues, please contact [your-email@domain.com]
+For questions or issues, please raise an issue in GitHub
 
 ---
 
